@@ -1,9 +1,4 @@
-/*
- * TODO: potentiometer
- * TODO: i2c
- */
-
-#include <msp430.h> 
+#include <msp430.h>
 #include <stdbool.h>
 
 unsigned int step_CC_number;
@@ -55,7 +50,7 @@ void update_display();
 
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
-	
+
 	lcd_init();
 	input_init();
 	piezo_T_A_init();
