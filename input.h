@@ -31,6 +31,10 @@ bool button_SW3;
 bool button_SW4;
 bool encoder_l;
 bool encoder_r;
+bool potentiometer_new;
+
+unsigned int pot_value;
+unsigned int pot_value_old;
 
 // the ISR for the buttons and the encoder
 __interrupt void P2_ISR();

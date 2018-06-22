@@ -44,7 +44,7 @@ void ton(unsigned int pitch, unsigned long Dauer) {
 //=====INTERRUPTS=====
 #pragma vector=TIMERA1_VECTOR				//Timer A verursacht Interrupt
 __interrupt void ton_umschalten(void){
-	switch( TAIV ){
+	switch(TAIV) {
 	case 2:
 		CCR1 += step_CC_number;
 		play_next_step();

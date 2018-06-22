@@ -48,7 +48,7 @@ void lcd_delay() {
 	// maybe replace by proper timer routine
 	// not really necessary, because it is a function used only at the beginning
 	// EXCEPT in lcd_send_char
-	__delay_cycles(2000);
+	__delay_cycles(850);
 }
 
 void lcd_set_cursor(unsigned char x, unsigned char y) {

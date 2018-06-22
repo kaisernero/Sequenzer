@@ -5,7 +5,6 @@ unsigned int step_CC_number;
 
 #include "lcd.h"
 #include "input.h"
-#include "konstanten.h"
 #include "piezoabgespeckt.h"
 
 const unsigned char NOTE_NAMES[12][3] = {" C", "#C", " D", "#D", " E", " F", "#F", " G", "#G", " A", "#A", " B"};
@@ -65,7 +64,7 @@ int main(void) {
 	// TODO: correct initialisation
 	unsigned int i;
 	for (i = 0; i < 16; i++) {
-		sequence[i].pitch = 36 + i;
+		sequence[i].pitch = 36 + 3*i;
 		sequence[i].tone_length = full;
 	}
 
@@ -103,17 +102,22 @@ int main(void) {
 			button_SW1_pressed();
 			button_SW1 = false;
 		}
+		if (potentiometer_new || current_step != pot_value && mode == edit) {
+			current_step = pot_value;
+			ton(sequence[current_step].pitch, 10);
+			outdated_display = true;
+			potentiometer_new = false;
+		}
 
 		if (outdated_display) {
 			update_display();
 		    outdated_display = false;
 		}
 		if ((encoder_l + encoder_r + button_SW4 + button_SW3 + button_SW2 + button_SW1 + outdated_display) == 0)
-			_BIS_SR(LPM0_bits); // Low power mode 0
-		// to wake up: _BIC_SR_IRQ(LPM0_bits);
+			LPM0; // Low power mode 0
+		// to wake up: LPM0_EXIT;
 	}
 }
-
 
 /*
  * INPUTS
@@ -144,31 +148,22 @@ void button_SW2_pressed() {
 	}
 }
 
-// button to increase tempo
+// button to decrease tempo
 void button_SW3_pressed() {
-//	if (tempo < 300) {
-//		tempo += 10;
-//		outdated_display = true;
-//		calculate_CC_number();
-//	}
-	if (current_step < 15) {
-		current_step++;
-		ton(sequence[current_step].pitch, 10);
+	if (tempo > 50) {
+		tempo -= 10;
 		outdated_display = true;
+		calculate_CC_number();
 	}
 }
 
-// button to decrease tempo
+// button to increase tempo
 void button_SW4_pressed() {
-//	if (tempo > 50) {
-//		tempo -= 10;
-//		outdated_display = true;
-//		calculate_CC_number();
-//	}
-	if (current_step > 0) {
-		current_step--;
-		ton(sequence[current_step].pitch, 15);
+
+	if (tempo < 500) {
+		tempo += 10;
 		outdated_display = true;
+		calculate_CC_number();
 	}
 }
 
