@@ -1,13 +1,12 @@
 #include <msp430.h>
 #include <stdbool.h>
 
-unsigned int step_CC_number;
 
 #include "sequence.h"
 
 #include "lcd.h"
 #include "input.h"
-#include "piezoabgespeckt.h"
+#include "tone.h"
 #include "led_matrix.h"
 
 enum Mode {
@@ -19,8 +18,9 @@ Step sequence[16];
 
 enum Mode mode;
 unsigned int tempo; // unsigned, because the tempo should never be negative
-bool outdated_display;
 unsigned int current_step;
+
+bool outdated_display;
 
 void button_SW4_pressed();
 void button_SW3_pressed();
@@ -30,7 +30,6 @@ void encoder_left();
 void encoder_right();
 void potentiometer_turned();
 
-void calculate_CC_number();
 void update_display();
 
 int main(void) {
@@ -38,12 +37,12 @@ int main(void) {
 
 	lcd_init();
 	input_init();
-	piezo_T_A_init();
+	ton_init();
 	i2c_init();
 
 	mode = edit; // the program starts in edit mode
 	tempo = 220;  // the starting tempo is 120 bpm
-	calculate_CC_number();
+	update_tempo(tempo);
 	CCTL1 = CCIE;
 
 	outdated_display = true;
@@ -112,9 +111,10 @@ int main(void) {
 void button_SW1_pressed() {
 	if (mode == edit) {
 		CCR1 = TAR + 100;
-		calculate_CC_number();
+		update_tempo(tempo);
 		current_step = 0;
 		led_on(current_step);
+
 		mode = play;
 	}
 	else {
@@ -140,7 +140,7 @@ void button_SW3_pressed() {
 	if (tempo > 50) {
 		tempo -= 10;
 		outdated_display = true;
-		calculate_CC_number();
+		update_tempo(tempo);
 	}
 }
 
@@ -150,7 +150,7 @@ void button_SW4_pressed() {
 	if (tempo < 500) {
 		tempo += 10;
 		outdated_display = true;
-		calculate_CC_number();
+		update_tempo(tempo);
 	}
 }
 
@@ -184,11 +184,6 @@ void potentiometer_turned() {
 /*
  * Play mode
  */
-
-// recalculates the CC-number(number to add to the capture/compare register) to the current tempo in bpm
-void calculate_CC_number() {
-	step_CC_number = (int) (32768 * 60 / tempo);
-}
 
 void play_next_step() {
 	if (mode == play) {
