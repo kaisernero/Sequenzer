@@ -1,3 +1,3 @@
 # TODO:
- * i2c led matrix
- * potentiometer with Timer B
+ * melody: gaps between notes
+ * initialisation values (melody?)
