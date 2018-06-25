@@ -6,6 +6,7 @@ unsigned int step_CC_number;
 #include "lcd.h"
 #include "input.h"
 #include "piezoabgespeckt.h"
+#include "led_matrix.h"
 
 const unsigned char NOTE_NAMES[12][3] = {" C", "#C", " D", "#D", " E", " F", "#F", " G", "#G", " A", "#A", " B"};
 
@@ -53,6 +54,7 @@ int main(void) {
 	lcd_init();
 	input_init();
 	piezo_T_A_init();
+	i2c_init();
 
 	mode = edit; // the program starts in edit mode
 	tempo = 220;  // the starting tempo is 120 bpm
@@ -69,6 +71,7 @@ int main(void) {
 	}
 
 	current_step = 0;
+	led_on(current_step);
 
     update_display(); // to show the current status on the display from the start
 
@@ -104,6 +107,7 @@ int main(void) {
 		}
 		if (potentiometer_new || current_step != pot_value && mode == edit) {
 			current_step = pot_value;
+			led_on(current_step);
 			ton(sequence[current_step].pitch, 10);
 			outdated_display = true;
 			potentiometer_new = false;
@@ -128,6 +132,7 @@ void button_SW1_pressed() {
 		CCR1 = TAR + 100;
 		calculate_CC_number();
 		current_step = 0;
+		led_on(current_step);
 		mode = play;
 	}
 	else {
@@ -223,6 +228,7 @@ void play_next_step() {
 			ton(sequence[current_step].pitch, (int) 6000 / tempo);
 			break;
 		}
+		led_on(current_step);
 		current_step++;
 		if (current_step == 16)
 			current_step = 0;
