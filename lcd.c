@@ -29,9 +29,10 @@
  */
 
 #include "lcd.h"
+#include "sequence.h"
 
 unsigned int base_y[2] = {0x80, 0xc0};
-//example for 2x16 display TODO: UNDERSTAND AND BETTER NAME
+//example for 2x16 display
 // 1. line 0x00..0x0F + Bit7==0x80
 // 2. line 0x40..0x4F + Bit7==0xc0
 // BIT7 nessesary for command "Set DD RAM address"
@@ -131,7 +132,6 @@ void lcd_send_command(unsigned char command) {
 	lcd_send_char(command);
 }
 
-// TODO replace the lcd_delay() calls with timed routine, because of potential problems
 void lcd_send_char(unsigned char byte) {
 	// high nibble über BIT0..BIT3 senden
 	DISPLAY_ENABLE_HIGH;
@@ -203,13 +203,55 @@ void lcd_write_int(unsigned int number, int digits) {
 	int i;
 	for (i = digits - 1; i >= 0; i--) {
 		string[i] = (unsigned char)(number % 10 + '0');
+		// remove leading zeroes by overwriting them with a space character
+		if (number == 0)
+			string[i] = ' ';
 		number /= 10;
-
-		// TODO: choice to replace '0' in front with ' '
-		if (number == 0) {
-
-		}
 	}
 
 	lcd_write_string(string);
+}
+
+/*
+ * project specific functions
+ */
+
+const unsigned char NOTE_NAMES[12][3] = {" C", "#C", " D", "#D", " E", " F", "#F", " G", "#G", " A", "#A", " B"};
+
+// writes the pitch in english notation, always displays sharps - # (no flats - b)
+void write_pitch(unsigned int pitch) {
+    lcd_set_cursor(0, 0);
+	// write the note name with the corresponding accidental (or not)
+	lcd_write_string(NOTE_NAMES[(int) pitch % 12]);
+	// write the octave number last
+	lcd_write_int((int) pitch / 12, 1);
+}
+
+void write_tone_length(enum Tone_length tone_length) {
+	lcd_set_cursor(0, 1);
+	lcd_write('[');
+	switch (tone_length) {
+	case pause:
+		lcd_write_string("....");
+		break;
+	case quarter:
+		lcd_write_string("O...");
+		break;
+	case half:
+		lcd_write_string("OO..");
+		break;
+	case three_quarters:
+		lcd_write_string("OOO.");
+		break;
+	case full:
+		lcd_write_string("OOOO");
+		break;
+	}
+	lcd_write(']');
+}
+
+void write_tempo(unsigned int tempo) {
+	lcd_set_cursor(9, 0);
+	lcd_write_int(tempo, 3);
+	lcd_write_string(" bpm");
 }

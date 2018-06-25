@@ -34,6 +34,8 @@
 #include <msp430.h>
 #include <stdbool.h>
 
+#include "sequence.h"
+
 #define LCD_DATA_OUT 	P1OUT
 #define LCD_DATA_DIR	P1DIR
 #define LCD_COM_OUT		P3OUT
@@ -61,5 +63,10 @@ void lcd_send_char(unsigned char byte);
 void lcd_write(unsigned char character);
 void lcd_write_string(unsigned char string[]);
 void lcd_write_int(unsigned int number, int digits);
+
+// project specific functions
+void write_pitch(unsigned int pitch);
+void write_tone_length(enum Tone_length tone_length);
+void write_tempo(unsigned int tempo);
 
 #endif

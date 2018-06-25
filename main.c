@@ -3,30 +3,17 @@
 
 unsigned int step_CC_number;
 
+#include "sequence.h"
+
 #include "lcd.h"
 #include "input.h"
 #include "piezoabgespeckt.h"
 #include "led_matrix.h"
 
-const unsigned char NOTE_NAMES[12][3] = {" C", "#C", " D", "#D", " E", " F", "#F", " G", "#G", " A", "#A", " B"};
-
 enum Mode {
 	edit,
 	play,
 };
-
-enum Tone_length {
-	pause,
-	quarter,
-	half,
-	three_quarters,
-	full,
-};
-
-typedef struct Step {
-	unsigned int pitch;
-	enum Tone_length tone_length;
-} Step;
 
 Step sequence[16];
 
@@ -41,11 +28,9 @@ void button_SW2_pressed();
 void button_SW1_pressed();
 void encoder_left();
 void encoder_right();
+void potentiometer_turned();
 
 void calculate_CC_number();
-void write_pitch(unsigned int pitch);
-void write_tone_length(enum Tone_length tone_length);
-void write_tempo(unsigned int tempo);
 void update_display();
 
 int main(void) {
@@ -105,11 +90,8 @@ int main(void) {
 			button_SW1_pressed();
 			button_SW1 = false;
 		}
-		if (potentiometer_new || current_step != pot_value && mode == edit) {
-			current_step = pot_value;
-			led_on(current_step);
-			ton(sequence[current_step].pitch, 10);
-			outdated_display = true;
+		if (potentiometer_new || current_step != pot_value) {
+			potentiometer_turned();
 			potentiometer_new = false;
 		}
 
@@ -124,7 +106,7 @@ int main(void) {
 }
 
 /*
- * INPUTS
+ * INPUT HANDLING
  */
 
 void button_SW1_pressed() {
@@ -191,28 +173,24 @@ void encoder_right() {
 }
 
 void potentiometer_turned() {
-//	if (mode == edit) {
-//		unsigned int i;
-//		i = potentiometer_value >> 6; // 10 bit (0 to 1023) ADC to 4 bit (0 to 15) for the current_step
-//		if (current_step != i) {
-//			current_step = i;
-//			//ton(sequence[current_step].pitch, 100);
-//			outdated_display = true;
-//		}
-//	}
+	if (mode == edit) {
+		current_step = pot_value;
+		led_on(current_step);
+		ton(sequence[current_step].pitch, 10);
+		outdated_display = true;
+	}
 }
 
 /*
  * Play mode
  */
 
-// recalculates the CC-number to the current tempo in bpm
+// recalculates the CC-number(number to add to the capture/compare register) to the current tempo in bpm
 void calculate_CC_number() {
 	step_CC_number = (int) (32768 * 60 / tempo);
 }
 
 void play_next_step() {
-	unsigned int current_tone_length = 60 / tempo;
 	if (mode == play) {
 		switch (sequence[current_step].tone_length) {
 		case quarter:
@@ -236,50 +214,10 @@ void play_next_step() {
 	}
 }
 
-/*
- * LCD
- */
-
-void write_pitch(unsigned int pitch) {
-    lcd_set_cursor(0, 0);
-	// write the note name with the corresponding accidental (or not)
-	lcd_write_string(NOTE_NAMES[(int) pitch % 12]);
-	// write the octave number last
-	lcd_write_int((int) pitch / 12, 1);
-}
-
-void write_tone_length(enum Tone_length tone_length) {
-	lcd_set_cursor(0, 1);
-	lcd_write('[');
-	// TODO: different characters
-	switch (tone_length) {
-	case pause:
-		lcd_write_string("....");
-		break;
-	case quarter:
-		lcd_write_string("O...");
-		break;
-	case half:
-		lcd_write_string("OO..");
-		break;
-	case three_quarters:
-		lcd_write_string("OOO.");
-		break;
-	case full:
-		lcd_write_string("OOOO");
-		break;
-	}
-	lcd_write(']');
-}
-
-void write_tempo(unsigned int tempo) {
-	lcd_set_cursor(9, 0);
-	// TODO: leading 0 removal in lcd_write_int
-	lcd_write_int(tempo, 3);
-	lcd_write_string(" bpm");
-}
-
+// is called whenever the display needs to be updated, rewrites the whole display
 void update_display() {
+	// |#C3      120 bpm| as an example | D6      080 bpm|
+	// |[O...]Bearbeiten| or:			|[OOO.] Abspielen|
 	switch (mode) {
 	case edit:
 		lcd_set_cursor(6, 1);
@@ -290,11 +228,6 @@ void update_display() {
 		lcd_write_string(" Abspielen");
 		break;
 	}
-
-	// TODO: replace with showing the step with the LED-matrix
-	lcd_set_cursor(5, 0);
-	lcd_write_int(current_step+1, 2);
-
     write_pitch(sequence[current_step].pitch);
     write_tone_length(sequence[current_step].tone_length);
     write_tempo(tempo);
