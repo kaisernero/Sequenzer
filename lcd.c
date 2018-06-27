@@ -216,7 +216,7 @@ void lcd_write_int(unsigned int number, int digits) {
  * project specific functions
  */
 
-const unsigned char NOTE_NAMES[12][3] = {" C", "#C", " D", "#D", " E", " F", "#F", " G", "#G", " A", "#A", " B"};
+unsigned char NOTE_NAMES[12][3] = {" C", "#C", " D", "#D", " E", " F", "#F", " G", "#G", " A", "#A", " B"};
 
 // writes the pitch in english notation, always displays sharps - # (no flats - b)
 void write_pitch(unsigned int pitch) {

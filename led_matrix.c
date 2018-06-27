@@ -39,6 +39,8 @@ void i2c_init() {
 	UCB0I2COA = 0x4e; // own address
 
 	UCB0CTL1 &= ~UCSWRST; // clear SW reset, resume operation
+
+	i2c_write_byte(I2C_EXPANDER_ADR, EXPANDER_IO_DIR, 0x00); // set GPIO pins as outputs
 }
 
 void i2c_write_byte(unsigned char i2c_address, unsigned char expander_reg, unsigned char data) {
