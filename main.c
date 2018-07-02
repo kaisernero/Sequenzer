@@ -47,11 +47,43 @@ int main(void) {
 
 	outdated_display = true;
 
-	// TODO: correct initialisation
-	unsigned int i;
-	for (i = 0; i < 16; i++) {
-		sequence[i].pitch = 36 + 3*i;
-		sequence[i].tone_length = full;
+	// start_melody: mario theme
+	sequence[0].pitch = 56;
+	sequence[0].tone_length = full;
+	sequence[1].pitch = 56;
+	sequence[1].tone_length = full;
+	sequence[2].pitch = 56;
+	sequence[2].tone_length = pause;
+	sequence[3].pitch = 56;
+	sequence[3].tone_length = full;
+	sequence[4].pitch = 56;
+	sequence[4].tone_length = pause;
+	sequence[5].pitch = 52;
+	sequence[5].tone_length = full;
+	sequence[6].pitch = 56;
+	sequence[6].tone_length = full;
+	sequence[7].pitch = 56;
+	sequence[7].tone_length = pause;
+	sequence[8].pitch = 59;
+	sequence[8].tone_length = full;
+	sequence[9].pitch = 59;
+	sequence[9].tone_length = pause;
+	sequence[10].pitch = 59;
+	sequence[10].tone_length = pause;
+	sequence[11].pitch = 59;
+	sequence[11].tone_length = pause;
+	sequence[12].pitch = 47;
+	sequence[12].tone_length = full;
+	sequence[13].pitch = 47;
+	sequence[13].tone_length = pause;
+	sequence[14].pitch = 47;
+	sequence[14].tone_length = pause;
+	sequence[15].pitch = 47;
+	sequence[15].tone_length = pause;
+
+	int i;
+	for(i=0; i<16; i++){
+		sequence[i].pitch += 24;
 	}
 
 	current_step = 0;
