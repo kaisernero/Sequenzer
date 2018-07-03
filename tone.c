@@ -21,11 +21,12 @@ void ton_init() {
 }
 
 void ton(unsigned int pitch, unsigned long Dauer) {
+	__enable_interrupt();
 	pitch = (int) (pow((double) 2, ((double) pitch - 57)/12) * 440);
 	m = 0;
-	ccn = 32768 / (pitch * 2);				//Berechnung des Übereinstimmungswertes für CCR2
-	t = (Dauer * pitch) / 50; 			//Berechnung des Zählvariablenlimits
-	CCR2 = TAR + ccn;      				// neuen Übereinstimmungswert berechnen
+	ccn = 32768 / (pitch * 2);				//Berechnung des Ãœbereinstimmungswertes fÃ¼r CCR2
+	t = (Dauer * pitch) / 50; 			//Berechnung des ZÃ¤hlvariablenlimits
+	CCR2 = TAR + ccn;      				// neuen Ãœbereinstimmungswert berechnen
 
 	CCTL2 = OUTMOD_4 + CCIE;
 }
@@ -45,7 +46,7 @@ __interrupt void ton_umschalten(void){
 		break;
 	case 4:
 		if(m<=t){
-			CCR2 += ccn;      					// neuen Übereinstimmungswert eintragen
+			CCR2 += ccn;      					// neuen Ãœbereinstimmungswert eintragen
 			m++;
 		}
 		else
