@@ -1,0 +1,71 @@
+% NOTES
+% the tilde ~ (alt-n) creates a non-breaking space, which is needed in the tables to prevent LaTeX from removing spaces (actually show 16 character wide lcd-figures)
+% ~ \newline % Benötigt, damit Text nicht direkt neben der Paragraphen-Überschrift beginnt
+% dashes: hyphen -, en-dash --, em-dash ---, minus-sign $-$
+
+
+% Präambel
+\documentclass[12pt, a4paper, german]{article}
+%\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\usepackage[all]{xy}
+\usepackage{courier}
+\usepackage{graphicx}
+
+\title{Dokumentation des Sequenzers im Modul Programmiertechnik}
+\author{Daniel Erich Raab, Justus Konstantin Schmidt}
+\begin{document}
+
+% LC-Display Abbildungs-Makros
+% leeres Display:
+ % ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\
+ % ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\
+\def\startlcdtable{
+	\begin{figure}[h]
+	\ttfamily
+	\centering
+	\setlength{\tabcolsep}{2pt} % makes the columns narrower (standard is 5pt)
+	\begin{tabular}{|cccccccccccccccc|}
+	\hline
+}
+\def\endlcdtable#1#2{
+	\hline
+	\end{tabular}
+	\normalfont
+	\caption{#1}
+	\label{#2}
+	\end{figure}
+}
+
+% Makro für Auszüge des Displays im Text
+\newcommand{\lcdtext}[1] {\texttt{\framebox[1.1\width]{#1}}}
+
+% Makro für Funktionennamen, bzw. allgemein Namen aus dem source code
+\newcommand{\source}[1] {\texttt{#1}}
+
+% Makro für xy-Zeichnungen
+\newcommand{\xydiagram}[3]{
+	\begin{figure}[h]
+	\centering
+	\[
+	\begin{xy}
+	\xymatrix {
+		#1
+	}
+	\end{xy}
+	\]
+	\caption{#2}
+	\label{#3}
+	\end{figure}
+}
+
+% Titelseite und Inhaltsverzeichnis
+\maketitle
+\tableofcontents
+
+% Die Texte sind diesen seperaten Dateien
+\input{einfuehrung.tex}
+
+\end{document}
