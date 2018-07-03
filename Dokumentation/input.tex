@@ -1,0 +1,8 @@
+\subsection{Eingabe (\emph{input})}
+In der Eingabe-Bibliothek werden die Taster sowie der Encoder ausgelesen und dem Rest des Programms in Form von Flaggen zur Auswertung zur Verfügung gestellt. Es werden die interrupts an Port 2 empfangen und ausgelesen, die jeweilige Flagge gesetzt und der Low-Power-Modus beendet, damit die Flaggen sofort ausgelesen und darauf reagiert werden kann.
+\subsubsection{\source{void button\_init()}}
+Die Funktion initialisiert den Port 2 so, dass die interrupts ausgelöst und damit auf die Eingaben reagiert werden kann.
+\subsubsection{Flaggen}
+Es gibt für jeden Taster eine Flagge (\source{bool button\_SW4} bis \source{bool button\_SW1} entsprechend der Tasternummer) und zwei für die beiden Drehrichtungen des Encoders (\source{bool encoder\_l} sowie \source{bool encoder\_r}).
+\subsubsection{\source{\_\_interrupt void P2\_ISR()}}
+Die interrupt service routine für Port 2, die aufgerufen wird, sobald ein Taster oder der Encoder betätigt werden. Dort wird überprüft, ob der Encoder und wenn ja, in welche Richtung er gedreht wurde. Da die Taster prellen, dürfen die Tasterdrücke nicht sofort ausgewertet werden, da ansonsten bei jedem Tastendruck fälschlicherweise viele Tastendrücke erkannt werden würden. Deswegen wird über die Wartefunktion \source{void debounce\_delay()} eine passende Wartezeit vor der Auswertung realisiert. Je nachdem welche Taster oder Encoder-Richtung erkannt wurde, wird die entsprechende Flagge gesetzt und der Prozessor aus dem Schlafmodus aufgeweckt, um in der \source{main()}-Funktion darauf zu reagieren.

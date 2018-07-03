@@ -1,0 +1,28 @@
+% ANMERKUNGEN
+% Unterstrich kann nicht direkt eingegeben werden, sondern es muss ein \ vorangestellt werden
+% für Funktionsnamen bzw. allgemein code verwende bitte: \source{NAME}
+% Für Unterüberschriften, die nicht im Inhaltsverzeichnis erscheinen: \paragraph{TITEL} ~ \newline
+
+\subsection{Display (\emph{lcd})}
+Die Display Bibliothek steuert das LC-Display und stellt verschiedene Methoden zur Beschreibung dessen zur Verfügung.
+Außerdem werden besondere Zeichen, hier eine Glocke, in das Display einprogrammiert und gespeichert. Das Display besitzt einen Cursor, der bestimmt wo neue Zeichen geschrieben werden.
+\newline
+Alle Funktionen des Display benötigen (relativ) viel Zeit, um mit dem Display-Controller zu kommunizieren und sollten demnach nicht in ISRs benutzt werden.
+\subsubsection{\source{void lcd\_init()}}
+Das LC-Display wird gestartet und initialisiert über die Funktion \source{void lcd\_init()}. Es wird dann die Initialisierungssequenz für das Display gesendet und es für die weitere Verwendung konfiguriert. Es wird das Display geleert und sowohl der Cursor als auch Blinken ausgeschaltet.
+\subsubsection{\source{void lcd\_clear()}}
+Eine Funktion, die alles Angezeigte vom Display löscht und den Cursor zurück in die obere, linke Ecke (0, 0) setzt.
+\subsubsection{Schreibfunktionen}
+Als grundlegenden Schreibfunktionen, um das Display zu verwenden, sind
+\begin{itemize}
+    \item \source{void lcd\_write(unsigned char character)},
+    \item \source{void lcd\_write\_string(unsigned char string[])} und
+    \item \source{void lcd\_write\_int(unsigned int number, int digits)}
+\end{itemize}
+für die verschiedenen wichtigen Datentypen implementiert. Es können einzelne Zeichen (\source{unsigned character}) gesendet werden, sowie ganze strings, also Felder von Zeichen, die jedoch mit dem terminierendem Zeichen \source{0x0} oder \source{'\textbackslash0'} abgeschlossen werden müssen. Dies passiert automatisch, wenn ein string mit doppelten Anführungszeichen angegeben wird. Um Zahlen (\source{int}) anzuzeigen muss noch ein zweites Argument übergeben werden, das die Anzahl der Stellen bestimmt. Falls die Zahl weniger Stellen besitzt, wird der Rest mit Nullen aufgefüllt, also wird beispielsweise bei der Zahl 45 und drei Stellen \lcdtext{045} angezeigt.
+\newline
+All diese Funktionen schreiben immer ab der aktuellen Position des Cursors und der Cursor ist nach dem Schreiben beim nachfolgenden Zeichen des letzten neu auf das Display geschriebenen Zeichens.
+\subsubsection{\source{void lcd\_set\_cursor(unsigned char x, unsigned char y)}}
+Der Cursor kann mithilfe der Funktion \source{void lcd\_set\_cursor(unsigned char x, unsigned char y)} an eine beliebige Stelle im Display gesetzt werden. \source{x} steht für die Position innerhalb der Zeile (beginnend mit 0, also maximal 15) und \source{y} für eine der beiden Zeilen (0 oder 1).
+\subsubsection{Zeit und Datum}
+Es sind außerdem für dieses Projekt spezifische Funktionen implementiert, um eine Uhrzeit mit oder ohne Sekunden anzuzeigen (\source{void lcd\_write\_time(Time time, bool seconds)}), ein Datum mit oder ohne Wochentag anzuzeigen (\source{void lcd\_write\_date(Date date, bool weekdays)}) und das spezielle Zeichen Glocke auf das Display zu schreiben.
