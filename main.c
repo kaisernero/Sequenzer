@@ -46,7 +46,6 @@ int main(void) {
 	mode = edit; // the program starts in edit mode
 	tempo = 220;  // the starting tempo is 120 bpm
 	update_tempo(tempo);
-	CCTL1 = CCIE; //TODO: wieso brauchen wir es
 	outdated_display = true;
 	current_step = 0;
 

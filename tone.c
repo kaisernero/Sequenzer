@@ -29,6 +29,7 @@ void ton(unsigned int pitch, unsigned long Dauer) {
 	CCR2 = TAR + ccn;      				// neuen Übereinstimmungswert berechnen
 
 	CCTL2 = OUTMOD_4 + CCIE;
+	CCTL1 = CCIE;
 }
 
 void update_tempo(unsigned int tempo) {
