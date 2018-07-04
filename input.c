@@ -12,7 +12,7 @@
  * input_init();
  * and then, when the inputs should be read, enable global interrupts with
  * __enable_interrupt();
- * 
+ *
  * the processor is woken up from low-power mode after a input was received
  * then the flags should be read and reacted upon
  */
@@ -65,12 +65,13 @@ void input_init() {
 
 #pragma vector = TIMERA0_VECTOR
 __interrupt void CCR0_ISR() {
-	CCR0 += 0x0010;
+	CCR0 += 0x0010; // controls how often the potentiometer value is read by the ADC
 }
 
 #pragma vector=ADC10_VECTOR
 __interrupt void ADC10_ISR(void)
 {
+	// 15 - (ADC10MEM >> 6): invert the direction of the potentiometer and make it a 4 bit value
 	pot_value = 15 - (ADC10MEM >> 6); // 10bit >> 6 -> 4bit: perfect for current_step with 16 values (4bit)
 	if (pot_value != pot_value_old) {
 		potentiometer_new = true;
@@ -112,7 +113,7 @@ __interrupt void P2_ISR() {
 	 * BIT5				 | 0b00010000
 	 * P2IFG & BIT5		 | 0b00010000
 	 * if (P2IFG & BIT5) | true, because it is NOT ZERO
-	 * 
+	 *
 	 * ELSE IF
 	 * the else if is there to prevent hard to debug errors, by only allowing one buttonpress to be detected for every interrupt
 	 */

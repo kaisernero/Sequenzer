@@ -11,7 +11,7 @@
 // switches on the led at the given number, with 'line breaks' so 0 to 15, then it repeats again
 void led_on(unsigned char led_nr) {
 	unsigned char data_byte = 0x00;
-	// colum (first nibble): 0 to switch the led on
+	// column (first nibble): 0 to switch the led on
 	data_byte += (0xEF << (led_nr / 4)) & 0xF0;
 	// row (second nibble): 1 to switch the led on
 	data_byte += 0x01 << (led_nr % 4);
@@ -29,9 +29,9 @@ void i2c_init() {
 
 	P3SEL |= BIT1 + BIT2; // select i2c for the pins
 
-	UCB0CTL1 |= UCSWRST;                    // Enable SW reset
-	UCB0CTL0 = UCMST + UCMODE_3 + UCSYNC;   // I2C Master, synchronous mode
-	UCB0CTL1 = UCSSEL_2 + UCSWRST;          // Use SMCLK, keep SW reset
+	UCB0CTL1 |= UCSWRST;                    // enable SW reset
+	UCB0CTL0 = UCMST + UCMODE_3 + UCSYNC;   // I2C master, synchronous mode
+	UCB0CTL1 = UCSSEL_2 + UCSWRST;          // use SMCLK, keep SW reset
 	UCB0BR0  = 2;    			            // fSCL = SMCLK/12 = ~100kHz
 											// fSCL = SMCLK/3  = ~400kHz
 											// fSCL = SMCLK/2  = ~600kHz

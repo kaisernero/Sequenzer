@@ -5,12 +5,12 @@
  *      Author: jschmid6
  */
 
-#ifndef PIEZOABGESPECKT_H_
-#define PIEZOABGESPECKT_H_
+#ifndef TONE_H_
+#define TONE_H_
 
 #include <math.h>
 
-unsigned int m;				//Deklaration der Zählvariable
+unsigned int m;	// Deklaration der Zählvariable
 unsigned int ccn;
 unsigned int t;
 unsigned int step_CC_number;
@@ -21,4 +21,4 @@ void update_tempo(unsigned int tempo);
 
 __interrupt void ton_umschalten();
 
-#endif /* PIEZOABGESPECKT_H_ */
+#endif /* TONE_H_ */

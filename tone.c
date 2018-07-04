@@ -41,7 +41,7 @@ __interrupt void ton_umschalten(void){
 	switch(TAIV) {
 	case 2:
 		CCR1 += step_CC_number;
-		play_next_step();
+		play_next_step(); // definiert in main.c, startet den nächsten Schritt und spielt dessen Ton ab
 		_BIC_SR_IRQ(LPM0_bits);
 		break;
 	case 4:

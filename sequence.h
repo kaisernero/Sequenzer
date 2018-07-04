@@ -1,7 +1,7 @@
 /*
  * sequence.h
  *
- * contains the definitions of the data types needed for a sequence: struct step and as a part of step: enum Tone_length
+ * Definitionen der Datenstrukturen und Variablen für die Sequenz
  */
 
 #ifndef SEQUENCE_H_
@@ -15,9 +15,14 @@ enum Tone_length {
 	full,
 };
 
-typedef struct Step {
+struct Step {
 	unsigned int pitch;
 	enum Tone_length tone_length;
-} Step;
+};
+
+struct Step sequence[16];
+
+unsigned int tempo;
+unsigned int current_step; // aktuelle Position innerhalb des Sequenz
 
 #endif /* SEQUENCE_H_ */

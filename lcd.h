@@ -34,7 +34,7 @@
 #include <msp430.h>
 #include <stdbool.h>
 
-#include "sequence.h"
+#include "sequence.h" // project specific include
 
 #define LCD_DATA_OUT 	P1OUT
 #define LCD_DATA_DIR	P1DIR

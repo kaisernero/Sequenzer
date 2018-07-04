@@ -1,27 +1,27 @@
+// externe Bibliotheken für den MSP430 und den Datentyp bool
 #include <msp430.h>
 #include <stdbool.h>
 
-
+// eigene Module
 #include "sequence.h"
+#include "tone.h"
 
+// eigene Bibliotheken
 #include "lcd.h"
 #include "input.h"
-#include "tone.h"
 #include "led_matrix.h"
 
+// die zwei verschiedenen Modi, in denen der Sequenzer sein kann
 enum Mode {
 	edit,
 	play,
 };
+enum Mode mode; // speichern des aktuellen Modus
 
-Step sequence[16];
-
-enum Mode mode;
-unsigned int tempo; // unsigned, because the tempo should never be negative
-unsigned int current_step;
-
+// Flagge für Aktualisierung des Displays
 bool outdated_display;
 
+// Funktionen, die die Ereignisse nach Abfrage der Flaggen bedienen
 void button_SW4_pressed();
 void button_SW3_pressed();
 void button_SW2_pressed();
@@ -29,25 +29,28 @@ void button_SW1_pressed();
 void encoder_left();
 void encoder_right();
 void potentiometer_turned();
-
 void update_display();
+
 
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
+    // Initialisierung der Module
 	lcd_init();
 	input_init();
 	ton_init();
 	i2c_init();
 
+
+	// Initialisierung der Variablen mit Werten
 	mode = edit; // the program starts in edit mode
 	tempo = 220;  // the starting tempo is 120 bpm
 	update_tempo(tempo);
-	CCTL1 = CCIE;
-
+	CCTL1 = CCIE; //TODO: wieso brauchen wir es
 	outdated_display = true;
+	current_step = 0;
 
-	// start_melody: mario theme
+	// Startsequenz: Super Mario Melodie
 	sequence[0].pitch = 56;
 	sequence[0].tone_length = full;
 	sequence[1].pitch = 56;
@@ -83,19 +86,17 @@ int main(void) {
 
 	int i;
 	for(i=0; i<16; i++){
-		sequence[i].pitch += 24;
+		sequence[i].pitch += 12;
 	}
 
-	current_step = 0;
+	// starten der Anzeigen: LED-Matrix und LC-Display
 	led_on(current_step);
+    update_display();
 
-    update_display(); // to show the current status on the display from the start
-
-    // start normal function of the alarm clock by first enabling the interrupts and then going to sleep
+    // interrupts freigeben und damit Start des normalen Programmablaufs
 	__enable_interrupt();
 
-
-	// let the msp go to sleep. only react to interrupts
+	// Schlafmodus für den Prozessor, bis ein interrupt auftritt und entsprechende Flaggen setzt
 	while (1) {
 		if (encoder_l) {
 			encoder_left();
@@ -133,13 +134,14 @@ int main(void) {
 		if ((encoder_l + encoder_r + button_SW4 + button_SW3 + button_SW2 + button_SW1 + outdated_display) == 0)
 			LPM0; // Low power mode 0
 		// to wake up: LPM0_EXIT;
+		// TODO: welcher low power mode?
 	}
 }
 
 /*
  * INPUT HANDLING
  */
-
+// Modus-Taster: wechselt zwischen den zwei Modi
 void button_SW1_pressed() {
 	if (mode == edit) {
 		CCR1 = TAR + 100;
@@ -156,6 +158,7 @@ void button_SW1_pressed() {
 	outdated_display = true;
 }
 
+// Tonlängen-Taster: erhöht die Tonlänge (bis zum Überlauf)
 void button_SW2_pressed() {
 	if (mode == edit) {
 		if (sequence[current_step].tone_length < full)
@@ -167,7 +170,7 @@ void button_SW2_pressed() {
 	}
 }
 
-// button to decrease tempo
+// Tempo-Taster: Tempo verringern (um 10bpm)
 void button_SW3_pressed() {
 	if (tempo > 50) {
 		tempo -= 10;
@@ -176,9 +179,8 @@ void button_SW3_pressed() {
 	}
 }
 
-// button to increase tempo
+// Tempo-Taster: Tempo erhöhen (um 10bpm)
 void button_SW4_pressed() {
-
 	if (tempo < 500) {
 		tempo += 10;
 		outdated_display = true;
@@ -186,24 +188,25 @@ void button_SW4_pressed() {
 	}
 }
 
-// turning the encoder "down"
+// Drehgeber wurde nach "unten" gedreht
 void encoder_left() {
-	// only decrease pitch when in edit mode and higher than the lowest pitch
+	// Tonhöhe nur im Bearbeiten-Modus verringern und wenn größer als die niedrigste Tonhöhe
 	if (mode == edit && sequence[current_step].pitch > 36) {
 		sequence[current_step].pitch--;
 		outdated_display = true;
 	}
 }
 
-// turning the encoder "up"
+// Drehgeber wurde nach "oben" gedreht
 void encoder_right() {
-	// only increase pitch when in edit mode and lower than the highest pitch
+	// Tonhöhe nur im Bearbeiten-Modus erhöhen und wenn niedriger als die höchste Tonhöhe
 	if (mode == edit && sequence[current_step].pitch < 96) {
 		sequence[current_step].pitch++;
 		outdated_display = true;
 	}
 }
 
+// Potentiometer wurde gedreht
 void potentiometer_turned() {
 	if (mode == edit) {
 		current_step = pot_value;
@@ -216,7 +219,7 @@ void potentiometer_turned() {
 /*
  * Play mode
  */
-
+// wird von tone.c aufgerufen, sobald der nächste Ton abgespielt werden soll
 void play_next_step() {
 	if (mode == play) {
 		switch (sequence[current_step].tone_length) {
@@ -241,7 +244,7 @@ void play_next_step() {
 	}
 }
 
-// is called whenever the display needs to be updated, rewrites the whole display
+// wird aufgerufen, sobald die Anzeige des Display aktualisiert werden muss und beschreibt das komplette Display neu
 void update_display() {
 	// |#C3      120 bpm| as an example | D6      080 bpm|
 	// |[O...]Bearbeiten| or:			|[OOO.] Abspielen|
