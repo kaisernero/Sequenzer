@@ -5,7 +5,7 @@
 
 # Vorstellung
  * Namen, Projekt
- * MSP430 in C, Sequenzer
+ * MSP430 in C, Education Board, Sequenzer
  * Sequenzer: Konstantin (Folien?)
  * Präsentation: Bildschirm(Start im Bearbeitungsmodus) - immer ein Schritt wird angezeigt und bearbeitet
                  Einstellungen: Tonhöhe, Tonlänge, Tempo
