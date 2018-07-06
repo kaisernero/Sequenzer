@@ -83,11 +83,6 @@ int main(void) {
 	sequence[15].pitch = 47;
 	sequence[15].tone_length = pause;
 
-	int i;
-	for(i=0; i<16; i++){
-		sequence[i].pitch += 12;
-	}
-
 	// starten der Anzeigen: LED-Matrix und LC-Display
 	led_on(current_step);
     update_display();

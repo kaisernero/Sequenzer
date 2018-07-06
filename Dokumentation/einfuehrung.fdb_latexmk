@@ -6,5 +6,18 @@
   "einfuehrung.aux" 1530662224 8 a94a2480d3289e625eea47cd1b285758 ""
   "einfuehrung.tex" 1530606917 5098 8c32e5225f79d15887062f2e190e5701 ""
   (generated)
-  "einfuehrung.log"
   "einfuehrung.dvi"
+  "einfuehrung.log"
+["pdflatex"] 1530707559 "einfuehrung.tex" "einfuehrung.pdf" "einfuehrung" 1530707559
+  "/usr/local/texlive/2016/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
+  "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
+  "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/cm/cmsl10.tfm" 1136768653 1508 efecb4a315fe0975509670a272d75ef5 ""
+  "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
+  "/usr/local/texlive/2016/texmf-dist/web2c/texmf.cnf" 1463093894 31953 b9489e6e586f798610c60aec1f5ec548 ""
+  "/usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt" 1481099327 3873397 84bf1811ef48ddbff1a901fa6cfdf176 ""
+  "/usr/local/texlive/2016/texmf.cnf" 1463979140 577 2938757e76f31531e65cc647e3507693 ""
+  "einfuehrung.aux" 1530662224 8 a94a2480d3289e625eea47cd1b285758 ""
+  "einfuehrung.tex" 1530707542 5016 377d7b1a62b91b3e74c49bb2c1a515ff ""
+  (generated)
+  "einfuehrung.pdf"
+  "einfuehrung.log"

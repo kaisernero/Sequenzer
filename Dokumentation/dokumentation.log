@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.12.7)  4 JUL 2018 01:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.12.7)  4 JUL 2018 14:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -614,21 +614,21 @@ Overfull \hbox (46.18498pt too wide) in paragraph at lines 12--12
 \tf@toc=\write4
 \openout4 = `dokumentation.toc'.
 
- (./einfuehrung.tex
-Overfull \hbox (8.7068pt too wide) in paragraph at lines 2--3
-\T1/cmr/m/n/12 Dies ist die tech-ni-sche Be-schrei-bung so-wie die Be-die-nungs
--an-lei-tung des Wecker-
- []
+ (./einfuehrung.tex [1
 
-<main_diagram.pdf, id=1, 231.86626pt x 319.1925pt>
+{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] <main_d
+iagram.pdf, id=13, 231.86626pt x 319.1925pt>
 File: main_diagram.pdf Graphic file (type pdf)
- <use main_diagram.pdf>
+
+<use main_diagram.pdf>
 Package pdftex.def Info: main_diagram.pdf used on input line 8.
 (pdftex.def)             Requested size: 231.86568pt x 319.19171pt.
 
-[1
+Overfull \hbox (0.19221pt too wide) in paragraph at lines 5--14
+\T1/cmr/m/n/12 Das Pro-gramm be-sitzt kei-nen se-quen-ti-el-len Ab-lauf, da ein
+ auf in-ter-rupts(engl.
+ []
 
-{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2 <./main_diagram.pdf
 
 pdfTeX warning: pdflatex (file ./main_diagram.pdf): PDF inclusion: invalid othe
@@ -642,7 +642,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 18.
  [3]
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 32.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 29.
 )
 (./lcd.tex
 Overfull \hbox (3.22472pt too wide) in paragraph at lines 7--11
@@ -690,7 +690,7 @@ tton_SW4 \T1/cmr/m/n/12 bis \T1/pcr/m/n/12 bool button_SW1
 Here is how much of TeX's memory you used:
  5232 strings out of 493014
  66090 string characters out of 6133351
- 179231 words of memory out of 5000000
+ 176234 words of memory out of 5000000
  8644 multiletter control sequences out of 15000+600000
  18207 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -709,7 +709,7 @@ sr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfsl1200.pfb></usr
 /local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/l
 ocal/texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on dokumentation.pdf (6 pages, 233030 bytes).
+Output written on dokumentation.pdf (6 pages, 236744 bytes).
 PDF statistics:
  88 PDF objects out of 1000 (max. 8388607)
  62 compressed objects within 1 object stream
