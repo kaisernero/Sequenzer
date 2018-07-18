@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.12.7)  4 JUL 2018 14:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.12.7)  18 JUL 2018 09:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -643,8 +643,12 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
  [3]
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/pcr/b/n' tried instead on input line 29.
-)
-(./lcd.tex
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--32
+
+ []
+
+) (./lcd.tex
 Overfull \hbox (3.22472pt too wide) in paragraph at lines 7--11
 \T1/cmr/m/n/12 Alle Funk-tio-nen des Dis-play be-nö-ti-gen (re-la-tiv) viel Zei
 t, um mit dem Display-
@@ -690,7 +694,7 @@ tton_SW4 \T1/cmr/m/n/12 bis \T1/pcr/m/n/12 bool button_SW1
 Here is how much of TeX's memory you used:
  5232 strings out of 493014
  66090 string characters out of 6133351
- 176234 words of memory out of 5000000
+ 176261 words of memory out of 5000000
  8644 multiletter control sequences out of 15000+600000
  18207 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -709,7 +713,7 @@ sr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfsl1200.pfb></usr
 /local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/l
 ocal/texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on dokumentation.pdf (6 pages, 236744 bytes).
+Output written on dokumentation.pdf (6 pages, 237058 bytes).
 PDF statistics:
  88 PDF objects out of 1000 (max. 8388607)
  62 compressed objects within 1 object stream
