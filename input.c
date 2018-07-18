@@ -69,7 +69,7 @@ __interrupt void CCR0_ISR() {
 }
 
 #pragma vector=ADC10_VECTOR
-__interrupt void ADC10_ISR(void)
+__interrupt void ADC10_ISR()
 {
 	// 15 - (ADC10MEM >> 6): invert the direction of the potentiometer and make it a 4 bit value
 	pot_value = 15 - (ADC10MEM >> 6); // 10bit >> 6 -> 4bit: perfect for current_step with 16 values (4bit)
