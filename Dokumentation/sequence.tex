@@ -1,0 +1,8 @@
+\subsection{Sequenz (\emph{sequence})}
+Diese Datei beinhaltet die Datenstrukturen und globalen Variablen der Sequenz. Globale Variablen sind das Tempo in bpm (\source{unsigned int tempo}) und die aktuelle Position innerhalb der Sequenz (\source{unsigned int current\_step}).
+
+\subsubsection{\source{enum Tone\_length}}
+Diese Enumeration definiert die fünf verschiedenen Tonlängen, die ein Schritt der Sequenz haben kann. Dies sind Pause - \source{pause}, Viertel - \source{quarter}, Halb - \source{half}, Dreiviertel - \source{three\_quarters} und Ganz - \source{full}. Dies rührt daher, dass die Sequenz in verschiedenen Tempi abgespielt werden kann und die Tonlänge deswegen relativ zum Tempo ist - wie bei geschriebener Musik.
+
+\subsubsection{\source{struct Step}}
+Diese Struktur beschreibt einen Schritt einer Sequenz und die Sequenz besteht aus 16 solcher Schritte: \source{struct Step sequence[16]}. Jeder Schritt besitzt dabei Tonlänge als \source{enum Tone\_length tone\_length} und Tonhöhe als \source{unsigned int pitch}. Die Tonhöhe ist eine Ganzzahl, die den Abstand in Halbtonschritten von C1 angibt. Mit zwölf Halbtönen pro Oktave bedeutet das C4 entspricht beispielsweise 36 oder \#G5 entspricht 55.
