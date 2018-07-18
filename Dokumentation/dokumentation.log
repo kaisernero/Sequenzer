@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.12.7)  18 JUL 2018 09:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.12.7)  18 JUL 2018 09:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -596,9 +596,9 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 65.
+(Font)              <14.4> on input line 70.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 65.
+(Font)              <7> on input line 70.
 
 (./dokumentation.toc
 LaTeX Font Info:    Try loading font information for T1+pcr on input line 7.
@@ -608,6 +608,11 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Overfull \hbox (46.18498pt too wide) in paragraph at lines 12--12
  [][] []\T1/pcr/m/n/12 void lcd_set_cursor(unsigned char x, unsigned 
+ []
+
+
+Overfull \hbox (2.985pt too wide) in paragraph at lines 14--14
+ [][] []\T1/pcr/m/n/12 void write_tone_length(enum Tone_length 
  []
 
 )
@@ -629,94 +634,97 @@ Overfull \hbox (0.19221pt too wide) in paragraph at lines 5--14
  auf in-ter-rupts(engl.
  []
 
-[2 <./main_diagram.pdf
 
-pdfTeX warning: pdflatex (file ./main_diagram.pdf): PDF inclusion: invalid othe
-r resource which is no dict (key 'ProcSets', type <array>); ignored.
->]
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[2]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 18.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 18.
- [3]
-LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 29.
+) (./main.tex
+[3 <./main_diagram.pdf
 
-Underfull \hbox (badness 10000) in paragraph at lines 30--32
+pdfTeX warning: pdflatex (file ./main_diagram.pdf): PDF inclusion: invalid othe
+r resource which is no dict (key 'ProcSets', type <array>); ignored.
+>]
+LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 1.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--4
 
  []
 
 ) (./lcd.tex
-Overfull \hbox (3.22472pt too wide) in paragraph at lines 7--11
+Overfull \hbox (8.19574pt too wide) in paragraph at lines 2--6
+\T1/cmr/m/n/12 vor-her fest-ge-leg-ten Stel-len mit be-stimm-ten Wer-ten be-sch
+reibt: \T1/pcr/m/n/12 write_pitch\T1/cmr/m/n/12 ,
+ []
+
+
+Overfull \hbox (3.22472pt too wide) in paragraph at lines 2--6
 \T1/cmr/m/n/12 Alle Funk-tio-nen des Dis-play be-nö-ti-gen (re-la-tiv) viel Zei
 t, um mit dem Display-
  []
 
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <12> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 11.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 6.
 [4]
-Overfull \hbox (6.57454pt too wide) in paragraph at lines 20--21
+Overfull \hbox (6.57454pt too wide) in paragraph at lines 15--16
 []\T1/pcr/m/n/12 void lcd_write_int(unsigned int number, int digits) 
  []
 
 
-Overfull \hbox (11.23978pt too wide) in paragraph at lines 25--25
+Overfull \hbox (11.23978pt too wide) in paragraph at lines 21--21
 []\T1/pcr/b/n/12 void lcd_set_cursor(unsigned char x, unsigned char
  []
 
 
-Overfull \hbox (7.12022pt too wide) in paragraph at lines 26--27
+Overfull \hbox (7.12022pt too wide) in paragraph at lines 22--23
 \T1/cmr/m/n/12 Der Cur-sor kann mit-hil-fe der Funk-ti-on \T1/pcr/m/n/12 void l
 cd_set_cursor(unsigned
  []
 
-) (./input.tex
-Overfull \hbox (52.00098pt too wide) in paragraph at lines 28--1
-\T1/cmr/m/n/12 um ei-ne Uhr-zeit mit oder oh-ne Se-kun-den an-zu-zei-gen (\T1/p
-cr/m/n/12 void lcd_write_time(Time
- []
-
-
-Overfull \hbox (8.20259pt too wide) in paragraph at lines 28--1
-\T1/cmr/m/n/12 (\T1/pcr/m/n/12 void lcd_write_date(Date date, bool weekdays)\T1
-/cmr/m/n/12 ) und das spe-
- []
-
 [5]
-Overfull \hbox (29.48227pt too wide) in paragraph at lines 6--7
+Overfull \hbox (25.63977pt too wide) in paragraph at lines 28--28
+[]\T1/pcr/b/n/12 void write_tone_length(enum Tone_length tone_length) 
+ []
+
+) (./input.tex
+Overfull \hbox (29.48227pt too wide) in paragraph at lines 8--9
 \T1/cmr/m/n/12 Es gibt für je-den Ta-ster ei-ne Flag-ge (\T1/pcr/m/n/12 bool bu
 tton_SW4 \T1/cmr/m/n/12 bis \T1/pcr/m/n/12 bool button_SW1
  []
 
-) [6] (./dokumentation.aux) ) 
+[6]) [7] (./dokumentation.aux) ) 
 Here is how much of TeX's memory you used:
- 5232 strings out of 493014
- 66090 string characters out of 6133351
- 176261 words of memory out of 5000000
+ 5235 strings out of 493014
+ 66112 string characters out of 6133351
+ 177261 words of memory out of 5000000
  8644 multiletter control sequences out of 15000+600000
  18207 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  37i,6n,27p,3244b,216s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvip
-s/cm-super/cm-super-t1.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/
-base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbi
-1440.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx12
-00.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx1440
-.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx1728.p
-fb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb
-></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><
-/usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></u
-sr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfsl1200.pfb></usr
-/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/l
-ocal/texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/tex
-live/2016/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on dokumentation.pdf (6 pages, 237058 bytes).
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/d
+vips/cm-super/cm-super-t1.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvi
+ps/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/s
+fbi1440.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfb
+x1200.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx1
+440.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx172
+8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.
+pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pf
+b></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb>
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfsl1200.pfb></
+usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></us
+r/local/texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/
+texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on dokumentation.pdf (7 pages, 243011 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 93 PDF objects out of 1000 (max. 8388607)
+ 66 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
