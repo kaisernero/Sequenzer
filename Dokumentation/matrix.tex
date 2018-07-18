@@ -1,0 +1,11 @@
+\subsection{LED-Matrix (\textsl{led\_matrix.h})}
+Diese Bibliothek steuert die LED-Matrix, die über die i2c-Schnittstelle an dem Mikrorechner angeschlossen ist. Die Matrix dient der visuellen Ausgabe der aktuellen Position innerhalb der Sequenz, indem eine der 16 LEDs leuchtet.
+
+\subsubsection{\source{void i2c\_init()}}
+Diese Funktion initialisiert alle benötigten Komponenten: Port 3, um die Datenleitungen ansteuern zu können, das Universal Serial Communication Interface (USCI), das die Kommunikation mit der LED-Matrix über i2c erledigt und dann die Initialisierung der Steuerung der LED-Matrix.
+
+\subsubsection{\source{void i2c\_write\_byte(unsigned char i2c\_address, unsigned char expander\_reg, unsigned char data)}}
+Diese Funktion wird benötigt, um eine einzelnes Byte in den Speicher der Steuerung der LED-Matrix zu schreiben. Dabei muss zuerst die i2c-Adresse der LED-Matrix übergeben werden sowie das zu beschreibende Register und natürlich das zu schreibende Byte. Diese Funktion wird innerhalb des Moduls verwendet, um das Register GPIO zu beschreiben, das die digitalen Pins der LEDs steuert und damit bestimmt welche LEDs leuchten.
+
+\subsubsection{\source{void led\_on(unsigned char led\_nr)}}
+Diese Funktion wird verwendet, um auszuwählen welche der 16 LEDs leuchten soll. Die Funktion berechnet aus der übergebenen Zahl in welcher Spalte und Zeile sich die entsprechende LED befindet und berechnet dann mithilfe von bit-Verschiebungen das Datenbyte, das in das GPIO-Register (kontrolliert die Ausgänge an denen die LED-Matrix angeschlossen ist) geschrieben wird. Die Zahl darf dabei nur zwischen 0 und 15 liegen, ansonsten leuchtet keine der LEDs. Das Datenbyte besteht aus zwei Teilen, den Bits 0 bis 3 und Bit 4 bis Bit 7, die entsprechend die vier Zeilen und vier Spalten aktivieren. Nur die LEDs leuchten deren Spalte \emph{und} Zeile aktiviert sind.
