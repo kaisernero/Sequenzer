@@ -5,3 +5,4 @@ Die \source{main.c}-Datei ist der Einstiegspunkt des Programms und enthält die 
 
 Es werden außer den ISRs noch ähnliche Funktionen definiert, die durch Bibliotheken für bestimmte Ereignisse aufgerufen werden. Dies sind \source{void new\_minute()}, das von der Uhrzeit-Bibliothek aufgerufen wird, sobald eine neue Minute angebrochen ist und die Funktion \source{void alarm\_ring()}, die signalisiert, dass ein Alarm ausgelöst worden ist und nun klingeln soll. Diese Funktionen wurden in die \source{main.c} Datei verlegt, da diese Ereignisse Veränderungen in mehreren Bibliotheken auslösen: \source{void new\_minute()} bedeutet, dass die Alarme überprüft werden müssen und die LED-Matrix aktualisiert werden muss;
 \source{void alarm\_ring()} bedeutet, dass das Menü in den Alarm-Modus übergehen muss und die Melodie des entsprechenden Alarms gestartet wird.
+Dies ist ein weiterer Satz, um zu testen, ob ich von Sublime aus git:push anwenden kann.
