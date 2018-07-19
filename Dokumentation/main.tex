@@ -36,9 +36,9 @@ Im Bearbeitungsmodus kann mit dem \textbf{Potentiometer} der zu bearbeitende Sch
 
 \subsubsection{\source{void play\_next\_step()}} % (fold)
 \label{ssub:void_play_next_step}
-Diese Funktion ist dafür verantwortlich, dass die Sequenz im Abspielmodus kontinuiertlich abgespielt wird. Abhängig von der Tonlänge wird ein Ton mit der Tonhöhe des aktuellen Schritts abgespielt. Die übergebene Tonlänge wird in Hundertstelsekunden übergeben. Da diese abgängig vom Tempo ist, muss sie hier berechnet werden. Der Faktor ergibt sich daraus, dass das Tempo in BPM (engl. beats per minute; \emph{Schläge pro Minute}) angegeben ist. Ein Ton mit der Länge \source{full} dauert also \(\frac{1}{\source{tempo}}*60\) Sekunden. Wenn man das mit 100 multipliziert, kommt man auf das Ergebnis in Hundertstelsekunden.
+Diese Funktion ist dafür verantwortlich, dass die Sequenz im Abspielmodus kontinuierlich abgespielt wird. Abhängig von der Tonlänge wird ein Ton mit der Tonhöhe des aktuellen Schritts abgespielt. Die übergebene Tonlänge wird in Hundertstelsekunden übergeben. Da diese abgängig vom Tempo ist, muss sie hier berechnet werden. Der Faktor ergibt sich daraus, dass das Tempo in BPM (engl. beats per minute; \emph{Schläge pro Minute}) angegeben ist. Ein Ton mit der Länge \source{full} dauert also \(\frac{1}{\source{tempo}}*60\) Sekunden. Wenn man das mit 100 multipliziert, kommt man auf das Ergebnis in Hundertstelsekunden.
 \[
-Tonl\ddot{a}nge~\source{full}~in~Hunderstelsekunden=\frac{1}{\source{tempo}}*60*100=\frac{6000}{\source{tempo}}
+Tonl\ddot{a}nge~\source{full}~in~Hundertstelsekunden=\frac{1}{\source{tempo}}*60*100=\frac{6000}{\source{tempo}}
 \]
 Die anderen Tonlängen sind lediglich mit 0.25, 0.5 und 0.75 multipliziert.\newline
 
