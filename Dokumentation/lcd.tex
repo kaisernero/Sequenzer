@@ -26,7 +26,7 @@ Diese Funktion wandelt die als Zahl angegebene Tonhöhe (wie in X erläutert) %T
 in die gewohnte Notation (Vorzeichen, Notenname und Oktavnummer, z.B. \lcdtext{\#G4}) um. Sie wird dann auf dem Display an der festgelegten Stelle (0, 0 - linke obere Ecke) für die Tonhöhe angezeigt.
 
 \subsubsection{\source{void write\_tone\_length(enum Tone\_length tone\_length)}}
-Mithilfe dieser Funktion wird auf dem Display ab der festgelegten Stelle 0, 1 ein Balkendiagramm als Darstellung der Tonlänge angezeigt. Übergeben wird die in \source{sequence.h} festgelegte Enumeration dafür und je nach Wert zeigt der Balken keine bis vier Segemente: beispielsweise \lcdtext{[OOO.]} oder \lcdtext{[....]}.
+Mithilfe dieser Funktion wird auf dem Display ab der festgelegten Stelle 0, 1 ein Balkendiagramm als Darstellung der Tonlänge angezeigt. Übergeben wird die in \source{sequence.h} festgelegte Enumeration dafür und je nach Wert zeigt der Balken keine bis vier Segmente: beispielsweise \lcdtext{[OOO.]} oder \lcdtext{[....]}.
 
 \subsubsection{\source{void write\_tempo(unsigned int tempo)}}
-Diese Funktion schreibt das Tempo als Zahl in bpm an die dafür festgelegte Stelle auf dem Display: 9, 0.
+Diese Funktion schreibt das Tempo als Zahl in BPM an die dafür festgelegte Stelle auf dem Display: 9, 0.
