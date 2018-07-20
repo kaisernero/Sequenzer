@@ -1,2 +1,37 @@
-\subsection{Ton (\emph{tone})}
+\subsection{Ton (\emph{tone})} % (fold)
 \label{sub:ton}
+In diesem Modul sind alle Funktionen hinterlegt, die für die Ton- und Melodieerzeugung notwendig sind.
+Die Tonerzeugung wird realisiert, indem die Ausgangseinheit von Capture/Compare-Register 2 (CCR2) im Toggle-Modus ist und direkt Portpin 2.4 ansteuert. Am Port 2.4 ist der Piezolautsprecher des Education Boards angeschlossen. Jedes mal, wenn der Stand des Timers A mit dem Wert von CCR2 übereinstimmt, toggelt die Ausgangseinheit und der Ausgangspegel von Portpin 2.4 wechselt. Somit schaltet auch die Membran des Piezos nach dieser Zeit um. Daraus folgt, dass die Zeit, nach der die Ausgangseinheit toggelt, die halbe Periodendauer des Tons ist, der vom Piezo ausgegeben wird. Der Timer A läuft im Continuous-Up-Modus, sodass der Wert, der die Periodendauer bestimmt, der Wert von CCR2 ist. Genauer gesagt ist es die Wertdifferenz zwischen altem und neuem Wert des Registers. Sein Wert wird nämlich jedes mal, wenn eine Übereinstimmung mit dem Timer A erreicht ist, im Interrupt um den Wert erhöht, der der gewünschten halben Periodendauer entspricht.
+
+\subsubsection{\source{void ton\_init()}} % (fold)
+\label{ssub:void_ton_init}
+Für die Tonerzeugung und auch für das Starten des nächsten Schritts wird der Timer A verwendet. Dafür werden hier die nötigen Grundeinstellungen vorgenommen. Timer A sowie CCR2 erhalten die Interruptfreigabe und die Ausgangseinheit von CCR2 wird direkt mit dem Piezo-Lautsprecher am Portpin 2.4 verbunden. Dann wird Timer A im Continuous-Up-Mode gestartet. Damit ist die Initialisierung abgeschlossen.
+% subsubsection void_ton_init (end)
+
+\subsubsection{\source{void ton(unsigned int pitch, unsigned long Dauer)}} % (fold)
+\label{ssub:void_ton}
+Diese Funktion wird aus der Funktion \source{void play\_next\_step()} (siehe Abschnitt \ref{ssub:void_play_next_step}) heraus aufgerufen. Das passiert innerhalb der ISR \source{\_\_interrupt void ton\_umschalten(void)}. Da die folgende Berechnung von \source{pitch} relativ viel Zeit beansprucht, ist es für die flüssige Abfolge des Programms wichtig, dass innerhalb dieser Funktion weitere Interrupts zugelassen werden. Aus der übergebenen Tonhöhe wird nun die zugehörige Frequenz des Tons berechnet.
+\[
+\source{pitch}=2^\frac{\source{pitch}-57}{12}*440
+\]
+Das Gleichheitszeichen ist hier als Zuweisung zu verstehen, so wie es auch im Quellcode angewendet wird. Das bedeutet, dass der Inhalt der Variable \source{pitch} von einer ganzen Zahl, die den Ton auf der Notenskala repräsentiert, in eine Frequenz umgewandelt wird, die für die Tonerzeugung genutzt werden kann.
+\newline
+\source{ccn} ist die Anzahl der Timerperioden, deren Dauer die halbe Periodendauer der Frequenz ist. Die halbe Periodendauer erhält man, wenn man das Reziproke der doppelten Frequenz bildet. Dieser Wert muss dann noch mit 32768 multipliziert werden, weil der Timer pro Sekunde um 32768 hochzählt. \source{t} steht für die Anzahl der Perioden, für die der Ton erklingen soll. Die Variable steht also für die Dauer des Tons.
+\newline
+Der erhaltene Wert für \source{ccn} wird nun auf den aktuellen Stand des Timers A aufaddiert und das Ergebnis in CCR2 geschrieben. Die Tonerzeugung wird gestartet, indem für CCR2 in den Toggle-Modus geschaltet und die Interruptfreigabe erteilt wird. Damit auch neue Töne gestartet werden können, wird auch für CCR1 die Interruptfreigabe erteilt.
+% subsubsection void_ton (end)
+
+\subsubsection{\source{void update\_tempo(unsinged int tempo)}} % (fold)
+\label{ssub:void_update_tempo}
+Hier wird die Anzahl der Timerperioden ermittelt, die erreicht sein muss, damit der nächste Schritt abgespielt wird. Das passiert abhängig vom Tempo. \source{step\_CC\_number} muss also immer neu berechnet werden, wenn das Tempo geändert wird.
+% subsubsection void_update_tempo (end)
+
+\subsubsection{\source{\_\_interrupt void ton\_umschalten(void)}} % (fold)
+\label{ssub:__interrupt_void_ton_umschalten}
+In einer \source{switch case}-Anweisung wird unterschieden, welche Capture/Compare-Einheit den Interrupt verursacht.
+\newline
+Im Fall \source{2} ist es Capture/Compare-Einheit 1. CCR1 wird erhöht, sodass wieder die Zeit bis zum nächsten Schritt ablaufen muss. In \source{play\_next\_step()} wird der aktuelle Schritt abgespielt. Weil sich beim Abspielen der Schritte auch die Ausgabe auf dem LCD und der LED-Matrix ändert, wird nun die CPU aus dem Low-Power-Modus aufgeweckt.
+\newline
+Im Fall \source{4} hat Capture-Compare-Einheit 2 den Interrupt ausgelöst. Hier wird CCR2 so erhöht, dass der Interrupt das nächste mal nach der halben Periodendauer des Tons ausgelöst wird. Die Zählvariable \source{m} bestimmt, ob der Ton schon über seine bestimmungsgemäße Dauer gespielt wurde oder nicht.
+% subsubsection __interrupt_void_ton_umschalten (end)
+% subsection ton (end)
