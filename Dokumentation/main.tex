@@ -1,22 +1,23 @@
 \subsection{Hauptprogramm (\emph{main})}
-Die \source{main.c}-Datei ist der Einstiegspunkt des Programms und enthält die Funktion \source{int main()}. Es werden alle unserer Bibliotheken inkludiert und die Funktionen deklariert, die für die Bedienung der Ereignisse aus den Interrupts zuständig sind. In der Variable \source{mode} wird gespeichert, in welchem der beiden möglichen Modi sich der Sequenzer gerade befindet. \par \noindent 
+Die Datei \textsl{main.c} ist der Einstiegspunkt des Programms und enthält die Funktion \source{int main()}. Es werden alle unserer Bibliotheken inkludiert und die Funktionen deklariert, die für die Bedienung der Ereignisse aus den Interrupts zuständig sind. In der Variable \source{mode} wird gespeichert, in welchem der beiden möglichen Modi sich der Sequenzer gerade befindet.
+\newline
 \source{outdated\_display} ist eine Flagge, die signalisiert, ob das LCD aktualisiert werden muss. Sie wird hier am Ende jeder Funktion gesetzt, weil jede Funktion Einfluss auf die Displayausgabe hat.
 
 \subsubsection{\source{int main()}} % (fold)
 \label{ssub:int main}
-Gleich zu Beginn werden die einzelnen Systeme initialisiert. Dann werden die Startwerte der Variablen zugewiesen. Dazu gehört auch die Startmelodie, für die jedem der 16 Schritte eine Tonhöhe und eine Tonlänge zugewiesen werden muss. Nachdem LCD und LED-Matrix gestartet wurden, werden die Interrupts freigegeben und es startet die Hauptschleife und damit der Interrupt-basierte Ablauf, wie im \emph{Abschnitt \ref{sub:grundstruktur} Grundstruktur} und in der Abbildung \ref{img:grundablauf} erläutert.
+Gleich zu Beginn werden die einzelnen Systeme initialisiert. Dann werden die Startwerte der Variablen zugewiesen. Dazu gehört auch die Startmelodie, für die jedem der 16 Schritte eine Tonhöhe und eine Tonlänge zugewiesen werden muss. Nachdem LCD und LED-Matrix gestartet wurden, werden die Interrupts freigegeben und es startet die Hauptschleife und damit der Interrupt-basierte Ablauf, wie im \textsl{Abschnitt \ref{sub:grundstruktur} Grundstruktur} und in \textsl{Abbildung \ref{img:grundablauf}} erläutert.
 % subsubsection int main (end)
 
 \subsubsection{\source{void button\_SW1\_pressed()}} % (fold)
 \label{ssub:void_button_sw1_pressed}
-Wenn der Taster \textbf{SW1} gedrückt wird, wird der Modus gewechselt. Falls vom Bearbeitungsmodus in den Abspielmodus gewechselt wird, wird die Tonerzeugung gestartet und \source{current\_step} auf \source{0} gesetzt, damit die Sequenz vom Anfang an abgespielt wird. \source{update\_tempo(tempo)} wird in \emph{Abschnitt \ref{sub:ton}} erklärt. Die LED-Matrix wird auch aktualisiert.
+Wenn der Taster \textbf{SW1} gedrückt wird, wird der Modus gewechselt. Falls vom Bearbeitungsmodus in den Abspielmodus gewechselt wird, wird die Tonerzeugung gestartet und \source{current\_step} auf \source{0} gesetzt, damit die Sequenz vom Anfang an abgespielt wird. \source{update\_tempo(tempo)} wird in \textsl{Abschnitt \ref{sub:ton}} erklärt. Die LED-Matrix wird auch aktualisiert.
 % subsubsection void_button_sw1_pressed (end)
 
 \subsubsection{\source{void button\_SW2\_pressed()}} % (fold)
 \label{ssub:void_button_sw2_pressed}
 Mit Taster \textbf{SW2} wird im Bearbeitungsmodus die Tonlänge eingestellt. Sie wird mit jedem Tastendruck erhöht.
-
-\noindent Wenn \source{sequence[current\_step].tone\_length = full} erreicht ist, wird die Tonlänge beim nächsten Tastendruck wieder auf \source{pause} gesetzt.
+\newline
+Wenn \source{sequence[current\_step].tone\_length = full} erreicht ist, wird die Tonlänge beim nächsten Tastendruck wieder auf \source{pause} gesetzt.
 % subsubsection void_button_sw2_pressed (end)
 
 \subsubsection{\source{void button\_SW3\&4\_pressed()}} % (fold)
@@ -26,7 +27,7 @@ Taster \textbf{SW3} und \textbf{SW4} verringern und erhöhen das aktuelle Tempo.
 
 \subsubsection{\source{void encoder\_left\&right()}} % (fold)
 \label{ssub:void_encoder_left&right}
-Mit dem \textbf{Encoder} wird im Bearbeitungsmodus die Tonhöhe des zu bearbeitenden Schritts eingestellt. Eine Drehung nach links bewirkt eine eine Verringerung der Tonhöhe und eine Drehung nach rechts ein Erhöhung. Wiederum wird der Wert nur verändert, wenn weder Ober- noch Untergrenze erreicht ist.
+Mit dem Drehgeber (hier \textbf{Encoder}) wird im Bearbeitungsmodus die Tonhöhe des zu bearbeitenden Schritts eingestellt. Eine Drehung nach links bewirkt eine eine Verringerung der Tonhöhe und eine Drehung nach rechts ein Erhöhung. Wiederum wird der Wert nur verändert, wenn weder Ober- noch Untergrenze erreicht ist.
 % subsubsection encoder_left&right (end)
 
 \subsubsection{\source{void potentionmeter\_turned()}} % (fold)
@@ -36,13 +37,12 @@ Im Bearbeitungsmodus kann mit dem \textbf{Potentiometer} der zu bearbeitende Sch
 
 \subsubsection{\source{void play\_next\_step()}} % (fold)
 \label{ssub:void_play_next_step}
-Diese Funktion ist dafür verantwortlich, dass die Sequenz im Abspielmodus kontinuierlich abgespielt wird. Abhängig von der Tonlänge wird ein Ton mit der Tonhöhe des aktuellen Schritts abgespielt. Die übergebene Tonlänge wird in Hundertstelsekunden übergeben. Da diese abgängig vom Tempo ist, muss sie hier berechnet werden. Der Faktor ergibt sich daraus, dass das Tempo in BPM (engl. beats per minute; \emph{Schläge pro Minute}) angegeben ist. Ein Ton mit der Länge \source{full} dauert also \(\frac{1}{\source{tempo}}*60\) Sekunden. Wenn man das mit 100 multipliziert, kommt man auf das Ergebnis in Hundertstelsekunden.
+Diese Funktion ist dafür verantwortlich, dass die Sequenz im Abspielmodus kontinuierlich abgespielt wird. Abhängig von der Tonlänge wird ein Ton mit der Tonhöhe des aktuellen Schritts abgespielt. Die übergebene Tonlänge wird in Hundertstelsekunden übergeben. Da diese abgängig vom Tempo ist, muss sie hier berechnet werden. Der Faktor ergibt sich daraus, dass das Tempo in BPM (engl. beats per minute; \textsl{Schläge pro Minute}) angegeben ist. Ein Ton mit der Länge \source{full} dauert also \(\frac{1}{\source{tempo}}\cdot60\) Sekunden. Wenn man das mit 100 multipliziert, kommt man auf das Ergebnis in Hundertstelsekunden. Die anderen Tonlängen sind lediglich mit 0.25, 0.5 und 0.75 multipliziert.
 \[
-Tonl\ddot{a}nge~\source{full}~in~Hundertstelsekunden=\frac{1}{\source{tempo}}*60*100=\frac{6000}{\source{tempo}}
+Tonl\ddot{a}nge~\source{full}~in~Hundertstelsekunden=\frac{1}{\source{tempo}}\cdot60\cdot100=\frac{6000}{\source{tempo}}
 \]
-Die anderen Tonlängen sind lediglich mit 0.25, 0.5 und 0.75 multipliziert.\newline
-
-Die LED-Matric wird wieder aktualisiert und die Schrittnummer wird inkrementiert, wenn der letzte Schritt noch nicht erreicht ist. Falls doch, wird \source{current\_step} wieder nullgesetzt, sodass die Sequenz wieder von vorne beginnt.
+\newline
+Die LED-Matrix wird wieder aktualisiert und die Schrittnummer wird inkrementiert, wenn der letzte Schritt noch nicht erreicht ist. Falls doch, wird \source{current\_step} wieder nullgesetzt, sodass die Sequenz wieder von vorne beginnt.
 % subsubsection void_play_next_step (end)
 
 \subsubsection{\source{void update\_display()}} % (fold)

@@ -5,14 +5,14 @@ Die Tonerzeugung wird realisiert, indem die Ausgangseinheit von Capture/Compare-
 
 \subsubsection{\source{void ton\_init()}} % (fold)
 \label{ssub:void_ton_init}
-Für die Tonerzeugung und auch für das Starten des nächsten Schritts wird der Timer A verwendet. Dafür werden hier die nötigen Grundeinstellungen vorgenommen. Timer A sowie CCR2 erhalten die Interruptfreigabe und die Ausgangseinheit von CCR2 wird direkt mit dem Piezo-Lautsprecher am Portpin 2.4 verbunden. Dann wird Timer A im Continuous-Up-Mode gestartet. Damit ist die Initialisierung abgeschlossen.
+Für die Tonerzeugung und auch für das Starten des nächsten Schritts wird Timer A verwendet. Dafür werden hier die nötigen Grundeinstellungen vorgenommen. Timer A sowie CCR2 erhalten die Interruptfreigabe und die Ausgangseinheit von CCR2 wird direkt mit dem Piezo-Lautsprecher am Portpin 2.4 verbunden. Dann wird Timer A im Continuous-Up-Mode gestartet. Damit ist die Initialisierung abgeschlossen.
 % subsubsection void_ton_init (end)
 
 \subsubsection{\source{void ton(unsigned int pitch, unsigned long Dauer)}} % (fold)
 \label{ssub:void_ton}
 Diese Funktion wird aus der Funktion \source{void play\_next\_step()} (siehe Abschnitt \ref{ssub:void_play_next_step}) heraus aufgerufen. Das passiert innerhalb der ISR \source{\_\_interrupt void ton\_umschalten(void)}. Da die folgende Berechnung von \source{pitch} relativ viel Zeit beansprucht, ist es für die flüssige Abfolge des Programms wichtig, dass innerhalb dieser Funktion weitere Interrupts zugelassen werden. Aus der übergebenen Tonhöhe wird nun die zugehörige Frequenz des Tons berechnet.
 \[
-\source{pitch}=2^\frac{\source{pitch}-57}{12}*440
+\source{pitch}=2^\frac{\source{pitch}-57}{12}\cdot440
 \]
 Das Gleichheitszeichen ist hier als Zuweisung zu verstehen, so wie es auch im Quellcode angewendet wird. Das bedeutet, dass der Inhalt der Variable \source{pitch} von einer ganzen Zahl, die den Ton auf der Notenskala repräsentiert, in eine Frequenz umgewandelt wird, die für die Tonerzeugung genutzt werden kann.
 \newline

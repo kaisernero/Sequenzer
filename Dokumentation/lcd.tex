@@ -2,7 +2,7 @@
 Die Display Bibliothek steuert das LC-Display und stellt verschiedene Methoden zur Beschreibung und Steuerung dessen zur Verfügung.
 Außerdem wurden besondere Methoden für diese Projekt implementiert, die die Anzeige an vorher festgelegten Stellen mit bestimmten Werten beschreibt: \source{write\_pitch}, \source{write\_tone\_length} und \source{write\_tempo}.
 \newline
-Alle Funktionen des Display benötigen (relativ) viel Zeit, um mit dem Display-Controller zu kommunizieren und sollten demnach nicht in Interrupt Service Routinen benutzt werden.
+Alle Funktionen des Displays benötigen (relativ) viel Zeit, um mit dem Display-Controller zu kommunizieren und sollten demnach nicht in Interrupt Service Routinen benutzt werden.
 \subsubsection{\source{void lcd\_init()}}
 Das LC-Display wird gestartet und initialisiert über die Funktion \source{void lcd\_init()}. Es wird dann die Initialisierungssequenz für das Display gesendet und es für die weitere Verwendung konfiguriert. Es wird das Display geleert und sowohl der Cursor als auch Blinken ausgeschaltet.
 \subsubsection{\source{void lcd\_clear()}}
